@@ -11,6 +11,8 @@ import AuthLayout from '@/layouts/auth-layout';
 
 type RegisterForm = {
     name: string;
+    lastname: string;
+    phone: string;
     email: string;
     password: string;
     password_confirmation: string;
@@ -19,6 +21,8 @@ type RegisterForm = {
 export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm<Required<RegisterForm>>({
         name: '',
+        lastname: '',
+        phone: '',
         email: '',
         password: '',
         password_confirmation: '',
@@ -36,6 +40,7 @@ export default function Register() {
             <Head title="Register" />
             <form className="flex flex-col gap-6" onSubmit={submit}>
                 <div className="grid gap-6">
+                    {/* Name field */}
                     <div className="grid gap-2">
                         <Label htmlFor="name">Name</Label>
                         <Input
@@ -43,14 +48,39 @@ export default function Register() {
                             type="text"
                             required
                             autoFocus
-                            tabIndex={1}
-                            autoComplete="name"
                             value={data.name}
                             onChange={(e) => setData('name', e.target.value)}
-                            disabled={processing}
-                            placeholder="Full name"
+                            placeholder="First name"
                         />
-                        <InputError message={errors.name} className="mt-2" />
+                        <InputError message={errors.name} />
+                    </div>
+
+                    {/* Lastname field */}
+                    <div className="grid gap-2">
+                        <Label htmlFor="lastname">Last Name</Label>
+                        <Input
+                            id="lastname"
+                            type="text"
+                            required
+                            value={data.lastname}
+                            onChange={(e) => setData('lastname', e.target.value)}
+                            placeholder="Last name"
+                        />
+                        <InputError message={errors.lastname} />
+                    </div>
+
+                    {/* Phone field */}
+                    <div className="grid gap-2">
+                        <Label htmlFor="phone">Phone Number</Label>
+                        <Input
+                            id="phone"
+                            type="tel"
+                            required
+                            value={data.phone}
+                            onChange={(e) => setData('phone', e.target.value)}
+                            placeholder="Phone number"
+                        />
+                        <InputError message={errors.phone} />
                     </div>
 
                     <div className="grid gap-2">
