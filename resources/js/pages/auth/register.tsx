@@ -36,7 +36,7 @@ export default function Register() {
     };
 
     return (
-        <AuthLayout title="Create an account" description="Enter your details below to create your account">
+        <AuthLayout title="Crea tu cuenta" description="Enter your details below to create your account">
             <Head title="Register" />
             <form className="flex flex-col gap-6" onSubmit={submit}>
                 <div className="grid gap-6">
