@@ -1,7 +1,7 @@
 import React from "react";
 import { Head } from "@inertiajs/react";
-import { AppShell } from "@/Components/ui/app-shell";
-import { Heading } from "@/components/heading";
+import { AppShell } from "@/components/app-shell";
+import Heading from "@/components/heading";
 import { Button } from "@/components/ui/button";
 import { useForm } from "@inertiajs/react";
 
@@ -61,7 +61,7 @@ export default function EditInstitution({ institution }: Props) {
                 id="name"
                 value={data.name}
                 onChange={(e) => setData("name", e.target.value)}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
+                className="mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-gray-900 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
               />
               {errors.name && <div className="text-red-500 text-sm mt-1">{errors.name}</div>}
             </div>
@@ -75,7 +75,7 @@ export default function EditInstitution({ institution }: Props) {
                 id="address"
                 value={data.address}
                 onChange={(e) => setData("address", e.target.value)}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
+                className="mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-gray-900 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
               />
               {errors.address && <div className="text-red-500 text-sm mt-1">{errors.address}</div>}
             </div>
@@ -89,7 +89,7 @@ export default function EditInstitution({ institution }: Props) {
                 id="phone"
                 value={data.phone}
                 onChange={(e) => setData("phone", e.target.value)}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
+                className="mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-gray-900 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
               />
               {errors.phone && <div className="text-red-500 text-sm mt-1">{errors.phone}</div>}
             </div>
@@ -103,7 +103,7 @@ export default function EditInstitution({ institution }: Props) {
                 id="institution_type"
                 value={data.institution_type}
                 onChange={(e) => setData("institution_type", e.target.value)}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
+                className="mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-gray-900 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
               />
               {errors.institution_type && <div className="text-red-500 text-sm mt-1">{errors.institution_type}</div>}
             </div>
@@ -117,7 +117,7 @@ export default function EditInstitution({ institution }: Props) {
                 id="country"
                 value={data.country}
                 onChange={(e) => setData("country", e.target.value)}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
+                className="mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-gray-900 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
               />
               {errors.country && <div className="text-red-500 text-sm mt-1">{errors.country}</div>}
             </div>
@@ -131,7 +131,7 @@ export default function EditInstitution({ institution }: Props) {
                 id="city"
                 value={data.city}
                 onChange={(e) => setData("city", e.target.value)}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
+                className="mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-gray-900 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
               />
               {errors.city && <div className="text-red-500 text-sm mt-1">{errors.city}</div>}
             </div>
