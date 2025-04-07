@@ -5,14 +5,25 @@ import { Button } from '@/Components/ui/button';
 import { Input } from '@/Components/ui/input';
 import { Label } from '@/Components/ui/label';
 
-export default function Create({ auth }: PageProps) {
+interface Teacher {
+    id: number;
+    name: string;
+    lastname: string;
+}
+
+interface CreateProps extends PageProps {
+    teachers: Teacher[];
+}
+
+export default function Create({ auth, teachers }: CreateProps) {
     const { data, setData, post, processing, errors } = useForm({
         name: '',
         address: '',
         phone: '',
         institution_type: '',
         country: '',
-        city: ''
+        city: '',
+        teachers: [] as number[]
     });
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -119,19 +130,36 @@ export default function Create({ auth }: PageProps) {
                                     )}
                                 </div>
 
-                                <div className="flex items-center gap-4">
+                                <div>
+                                    <Label htmlFor="teachers">Profesores</Label>
+                                    <select
+                                        id="teachers"
+                                        multiple
+                                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 min-h-[100px]"
+                                        value={data.teachers}
+                                        onChange={e => {
+                                            const selectedOptions = Array.from(e.target.selectedOptions, option => parseInt(option.value));
+                                            setData('teachers', selectedOptions);
+                                        }}
+                                    >
+                                        {teachers.map((teacher) => (
+                                            <option key={teacher.id} value={teacher.id}>
+                                                {teacher.name} {teacher.lastname}
+                                            </option>
+                                        ))}
+                                    </select>
+                                    <p className="text-sm text-gray-500 mt-1">Mantén presionada la tecla Ctrl (Windows) o Command (Mac) para seleccionar múltiples profesores</p>
+                                    {errors.teachers && (
+                                        <p className="text-red-500 text-sm mt-1">{errors.teachers}</p>
+                                    )}
+                                </div>
+
+                                <div className="flex items-center justify-end mt-4">
                                     <Button
-                                        type="submit"
+                                        className="ml-4"
                                         disabled={processing}
                                     >
-                                        Guardar
-                                    </Button>
-                                    <Button
-                                        type="button"
-                                        variant="outline"
-                                        onClick={() => window.history.back()}
-                                    >
-                                        Cancelar
+                                        Crear Institución
                                     </Button>
                                 </div>
                             </form>
