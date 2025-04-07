@@ -76,13 +76,16 @@ export default function Create({ auth }: PageProps) {
 
                                 <div>
                                     <Label htmlFor="institution_type">Tipo de Institución</Label>
-                                    <Input
+                                    <select
                                         id="institution_type"
-                                        type="text"
+                                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                                         value={data.institution_type}
                                         onChange={e => setData('institution_type', e.target.value)}
-                                        className="mt-1 block w-full"
-                                    />
+                                    >
+                                        <option value="">Seleccione un tipo</option>
+                                        <option value="Colegio">Colegio</option>
+                                        <option value="Universidad">Universidad</option>
+                                    </select>
                                     {errors.institution_type && (
                                         <p className="text-red-500 text-sm mt-1">{errors.institution_type}</p>
                                     )}

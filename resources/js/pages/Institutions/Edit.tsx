@@ -98,13 +98,16 @@ export default function EditInstitution({ institution }: Props) {
               <label htmlFor="institution_type" className="block text-sm font-medium text-gray-700">
                 Tipo de Institución
               </label>
-              <input
-                type="text"
+              <select
                 id="institution_type"
                 value={data.institution_type}
                 onChange={(e) => setData("institution_type", e.target.value)}
                 className="mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-gray-900 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
-              />
+              >
+                <option value="">Seleccione un tipo</option>
+                <option value="Colegio">Colegio</option>
+                <option value="Universidad">Universidad</option>
+              </select>
               {errors.institution_type && <div className="text-red-500 text-sm mt-1">{errors.institution_type}</div>}
             </div>
 
