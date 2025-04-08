@@ -75,9 +75,14 @@ class InstitutionController extends Controller
             'institution_type' => 'required|string|max:50',
             'country' => 'required|string|max:100',
             'city' => 'required|string|max:100',
+            'teachers' => 'array'
         ]);
 
+        $teachers = $validated['teachers'] ?? [];
+        unset($validated['teachers']);
+
         $institution->update($validated);
+        $institution->users()->sync($teachers);
 
         return redirect()->route('institutions.index')
             ->with('message', 'Institución actualizada exitosamente');
