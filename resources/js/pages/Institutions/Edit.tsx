@@ -148,10 +148,13 @@ export default function EditInstitution({ auth, institution, teachers }: Props) 
                       const selectedOptions = Array.from(e.target.selectedOptions, option => Number(option.value));
                       setData("teachers", selectedOptions);
                     }}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 min-h-[100px]"
                   >
                     {teachers?.map((teacher) => (
-                      <option key={teacher.id} value={teacher.id}>
+                      <option 
+                        key={teacher.id} 
+                        value={teacher.id}
+                      >
                         {teacher.name} {teacher.lastname}
                       </option>
                     ))}

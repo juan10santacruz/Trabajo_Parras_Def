@@ -55,8 +55,14 @@ class InstitutionController extends Controller
 
     public function edit(Institution $institution)
     {
+        $teacherRole = Role::where('slug', 'teacher')->first();
+        $teachers = User::whereHas('roles', function($query) use ($teacherRole) {
+            $query->where('id', $teacherRole->id);
+        })->get();
+
         return Inertia::render('Institutions/Edit', [
-            'institution' => $institution
+            'institution' => $institution->load('users'),
+            'teachers' => $teachers
         ]);
     }
 

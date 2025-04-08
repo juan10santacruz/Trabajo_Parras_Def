@@ -20,11 +20,6 @@ class Institution extends Model
         'city'
     ];
 
-    public function teachers(): HasMany
-    {
-        return $this->hasMany(Teacher::class);
-    }
-
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class);
