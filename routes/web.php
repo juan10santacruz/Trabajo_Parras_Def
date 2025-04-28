@@ -12,6 +12,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render('dashboard');
     })->name('dashboard');
 
+    Route::get('teacher/dashboard', function () {
+        return Inertia::render('TeacherDashboard');
+    })->name('teacher.dashboard');
+
     Route::resource('institutions', App\Http\Controllers\InstitutionController::class);
 });
 

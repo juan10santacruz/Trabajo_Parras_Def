@@ -1,14 +1,16 @@
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import { Head } from '@inertiajs/react';
+import React from 'react';
 import { User } from '@/types';
 import { PropsWithChildren, useState } from 'react';
 import { Link } from '@inertiajs/react';
 import AppLogoIcon from '@/components/app-logo-icon';
 
-interface Props {
-    user: User;
-    header?: React.ReactNode;
+interface TeacherDashboardProps {
+    auth: any;
 }
 
-export default function AuthenticatedLayout({ user, header, children }: PropsWithChildren<Props>) {
+function TeacherAuthenticatedLayout({ user, header, children }: PropsWithChildren<{ user: User; header?: React.ReactNode }>) {
     const [dropdownOpen, setDropdownOpen] = useState(false);
     return (
         <div className="min-h-screen bg-gray-100">
@@ -17,9 +19,7 @@ export default function AuthenticatedLayout({ user, header, children }: PropsWit
                     <div className="flex justify-between h-16">
                         <div className="flex">
                             <div className="shrink-0 flex items-center">
-                                <Link href={route('dashboard')}>
-                                    <AppLogoIcon className="block h-9 w-auto fill-current text-gray-800" />
-                                </Link>
+                                <AppLogoIcon className="block h-9 w-auto fill-current text-gray-800" />
                             </div>
                         </div>
 
@@ -53,7 +53,7 @@ export default function AuthenticatedLayout({ user, header, children }: PropsWit
                                                 as="button"
                                                 className="block w-full px-4 py-2 text-left text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
                                             >
-                                                Log out
+                                                Cerrar sesión
                                             </Link>
                                         </div>
                                     )}
@@ -72,5 +72,35 @@ export default function AuthenticatedLayout({ user, header, children }: PropsWit
 
             <main>{children}</main>
         </div>
+    );
+}
+
+export default function TeacherDashboard({ auth }: TeacherDashboardProps) {
+    return (
+        <>
+            <Head title="Panel de Profesores" />
+
+            <TeacherAuthenticatedLayout
+                user={auth.user}
+                header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Panel de Profesores</h2>}
+            >
+                <div className="py-12">
+                    <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+                        <div className="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                            <div className="max-w-xl">
+                                <section>
+                                    <header>
+                                        <h2 className="text-lg font-medium text-gray-900">Panel de Control</h2>
+                                        <p className="mt-1 text-sm text-gray-600">
+                                            Bienvenido al panel de control de profesores.
+                                        </p>
+                                    </header>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </TeacherAuthenticatedLayout>
+        </>    
     );
 }
