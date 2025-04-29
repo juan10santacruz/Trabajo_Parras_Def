@@ -36,6 +36,10 @@ class AuthenticatedSessionController extends Controller
         $user = Auth::user();
         $userRoles = $user->roles->pluck('slug')->toArray();
 
+        if (in_array('admin', $userRoles)) {
+            return redirect()->intended(route('admin.dashboard', absolute: false));
+        }
+
         if (in_array('teacher', $userRoles)) {
             return redirect()->intended(route('teacher.dashboard', absolute: false));
         }
