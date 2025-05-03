@@ -68,8 +68,9 @@ export default function Index({ auth, institutions }: Props) {
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
                                                     <Button
                                                         onClick={() => router.get(route('institutions.edit', institution.id))}
-                                                        variant="outline"
+                                                        variant="secondary"
                                                         size="sm"
+                                                        className="text-white"
                                                     >
                                                         Editar
                                                     </Button>

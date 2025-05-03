@@ -11,11 +11,18 @@ interface Teacher {
     lastname: string;
 }
 
-interface CreateProps extends PageProps {
-    teachers: Teacher[];
+interface Test {
+    id: number;
+    name: string;
+    description: string;
 }
 
-export default function Create({ auth, teachers }: CreateProps) {
+interface CreateProps extends PageProps {
+    teachers: Teacher[];
+    tests: Test[];
+}
+
+export default function Create({ auth, teachers, tests }: CreateProps) {
     const { data, setData, post, processing, errors } = useForm({
         name: '',
         address: '',
@@ -23,7 +30,8 @@ export default function Create({ auth, teachers }: CreateProps) {
         institution_type: '',
         country: '',
         city: '',
-        teachers: [] as number[]
+        teachers: [] as number[],
+        tests: [] as number[]
     });
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -151,6 +159,30 @@ export default function Create({ auth, teachers }: CreateProps) {
                                     <p className="text-sm text-gray-500 mt-1">Mantén presionada la tecla Ctrl (Windows) o Command (Mac) para seleccionar múltiples profesores</p>
                                     {errors.teachers && (
                                         <p className="text-red-500 text-sm mt-1">{errors.teachers}</p>
+                                    )}
+                                </div>
+
+                                <div>
+                                    <Label htmlFor="tests">Tests</Label>
+                                    <select
+                                        id="tests"
+                                        multiple
+                                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 min-h-[100px]"
+                                        value={data.tests}
+                                        onChange={e => {
+                                            const selectedOptions = Array.from(e.target.selectedOptions, option => parseInt(option.value));
+                                            setData('tests', selectedOptions);
+                                        }}
+                                    >
+                                        {(tests || []).map((test) => (
+                                            <option key={test.id} value={test.id}>
+                                                {test.name}
+                                            </option>
+                                        ))}
+                                    </select>
+                                    <p className="text-sm text-gray-500 mt-1">Mantén presionada la tecla Ctrl (Windows) o Command (Mac) para seleccionar múltiples tests</p>
+                                    {errors.tests && (
+                                        <p className="text-red-500 text-sm mt-1">{errors.tests}</p>
                                     )}
                                 </div>
 

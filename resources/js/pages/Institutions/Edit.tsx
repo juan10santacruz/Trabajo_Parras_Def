@@ -12,6 +12,12 @@ interface Teacher {
   lastname: string;
 }
 
+interface Test {
+  id: number;
+  name: string;
+  description: string;
+}
+
 interface Institution {
   id: number;
   name: string;
@@ -21,14 +27,16 @@ interface Institution {
   country: string;
   city: string;
   teachers: Teacher[];
+  tests: Test[];
 }
 
 interface Props extends PageProps {
   institution: Institution;
   teachers: Teacher[];
+  tests: Test[];
 }
 
-export default function EditInstitution({ auth, institution, teachers }: Props) {
+export default function EditInstitution({ auth, institution, teachers, tests }: Props) {
   const { data, setData, put, processing, errors } = useForm({
     name: institution.name,
     address: institution.address,
@@ -36,7 +44,8 @@ export default function EditInstitution({ auth, institution, teachers }: Props) 
     institution_type: institution.institution_type,
     country: institution.country,
     city: institution.city,
-    teachers: institution.teachers?.map(teacher => teacher.id) || []
+    teachers: institution.teachers?.map(teacher => teacher.id) || [],
+    tests: institution.tests?.map(test => test.id) || []
   });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -148,7 +157,8 @@ export default function EditInstitution({ auth, institution, teachers }: Props) 
                       const selectedOptions = Array.from(e.target.selectedOptions, option => Number(option.value));
                       setData("teachers", selectedOptions);
                     }}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 min-h-[100px]"
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 min-h-[100px] text-gray-900 bg-white"
+                    style={{ color: '#1f2937' }}
                   >
                     {teachers?.map((teacher) => (
                       <option 
@@ -160,6 +170,32 @@ export default function EditInstitution({ auth, institution, teachers }: Props) 
                     ))}
                   </select>
                   {errors.teachers && <div className="text-red-500 text-sm mt-1">{errors.teachers}</div>}
+                </div>
+
+                <div className="col-span-2">
+                  <Label htmlFor="tests" className="text-gray-700">Tests</Label>
+                  <select
+                    id="tests"
+                    multiple
+                    value={data.tests}
+                    onChange={(e) => {
+                      const selectedOptions = Array.from(e.target.selectedOptions, option => Number(option.value));
+                      setData("tests", selectedOptions);
+                    }}
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 min-h-[100px] text-gray-900 bg-white"
+                    style={{ color: '#1f2937' }}
+                  >
+                    {tests?.map((test) => (
+                      <option 
+                        key={test.id} 
+                        value={test.id}
+                      >
+                        {test.name}
+                      </option>
+                    ))}
+                  </select>
+                  <p className="text-sm text-gray-500 mt-1">Mantén presionada la tecla Ctrl (Windows) o Command (Mac) para seleccionar múltiples tests</p>
+                  {errors.tests && <div className="text-red-500 text-sm mt-1">{errors.tests}</div>}
                 </div>
               </div>
 

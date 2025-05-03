@@ -26,8 +26,11 @@ class InstitutionController extends Controller
             $query->where('id', $teacherRole->id);
         })->get();
 
+        $tests = \App\Models\Test::all();
+
         return Inertia::render('Institutions/Create', [
-            'teachers' => $teachers
+            'teachers' => $teachers,
+            'tests' => $tests
         ]);
     }
 
@@ -40,14 +43,17 @@ class InstitutionController extends Controller
             'institution_type' => 'required|string|max:50',
             'country' => 'required|string|max:100',
             'city' => 'required|string|max:100',
-            'teachers' => 'array'
+            'teachers' => 'array',
+            'tests' => 'array'
         ]);
 
         $teachers = $validated['teachers'] ?? [];
-        unset($validated['teachers']);
+        $tests = $validated['tests'] ?? [];
+        unset($validated['teachers'], $validated['tests']);
 
         $institution = Institution::create($validated);
         $institution->users()->attach($teachers);
+        $institution->tests()->attach($tests);
 
         return redirect()->route('institutions.index')
             ->with('message', 'Institución creada exitosamente');
@@ -60,9 +66,12 @@ class InstitutionController extends Controller
             $query->where('id', $teacherRole->id);
         })->get();
 
+        $tests = \App\Models\Test::all();
+
         return Inertia::render('Institutions/Edit', [
-            'institution' => $institution->load('users'),
-            'teachers' => $teachers
+            'institution' => $institution->load(['users', 'tests']),
+            'teachers' => $teachers,
+            'tests' => $tests
         ]);
     }
 
@@ -75,14 +84,17 @@ class InstitutionController extends Controller
             'institution_type' => 'required|string|max:50',
             'country' => 'required|string|max:100',
             'city' => 'required|string|max:100',
-            'teachers' => 'array'
+            'teachers' => 'array',
+            'tests' => 'array'
         ]);
 
         $teachers = $validated['teachers'] ?? [];
-        unset($validated['teachers']);
+        $tests = $validated['tests'] ?? [];
+        unset($validated['teachers'], $validated['tests']);
 
         $institution->update($validated);
         $institution->users()->sync($teachers);
+        $institution->tests()->sync($tests);
 
         return redirect()->route('institutions.index')
             ->with('message', 'Institución actualizada exitosamente');

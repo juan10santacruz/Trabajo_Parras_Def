@@ -24,4 +24,9 @@ class Institution extends Model
     {
         return $this->belongsToMany(User::class);
     }
+
+    public function tests(): BelongsToMany
+    {
+        return $this->belongsToMany(Test::class);
+    }
 }
