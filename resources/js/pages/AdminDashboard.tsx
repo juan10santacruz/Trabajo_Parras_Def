@@ -173,19 +173,19 @@ export default function AdminDashboard({ auth }: AdminDashboardProps) {
                 header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Panel de Administrador</h2>}
             >
                 <div className="py-12">
-                    <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+                    <div className="max-w-full mx-auto sm:px-6 lg:px-8 space-y-6">
                         <div className="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                            <div className="max-w-xl">
+                            <div className="w-full">
                                 <section>
                                     <header>
-                                        <h2 className="text-lg font-medium text-gray-900">Panel de Control</h2>
-                                        <p className="mt-1 text-sm text-gray-600">
+                                        <h2 className="text-2xl font-medium text-gray-900">Panel de Control</h2>
+                                        <p className="mt-2 text-sm text-gray-600">
                                             Bienvenido al panel de control de administrador.
                                         </p>
                                     </header>
                                     
-                                    <div className="mt-6 space-y-4">
-                                        <div className="p-4 bg-white rounded-lg border border-gray-200 shadow-sm">
+                                    <div className="mt-8 space-y-6">
+                                        <div className="p-6 bg-white rounded-lg border border-gray-200 shadow-sm">
                                             <h3 className="text-md font-medium text-gray-900">Gestión de Tests</h3>
                                             <p className="mt-1 text-sm text-gray-600">
                                                 Cree y administre tests de evaluación docente basados en competencias.
@@ -205,24 +205,24 @@ export default function AdminDashboard({ auth }: AdminDashboardProps) {
                                                 </button>
                                             </div>
                                             {showTests && (
-                                                <div className="mt-4 overflow-x-auto">
+                                                <div className="mt-4 overflow-x-auto bg-white rounded-lg shadow">
                                                     <table className="min-w-full divide-y divide-gray-200">
                                                         <thead className="bg-gray-50">
                                                             <tr>
-                                                                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nombre</th>
-                                                                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Descripción</th>
-                                                                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Preguntas</th>
+                                                                <th scope="col" className="px-6 py-4 text-left text-sm font-semibold text-gray-500 uppercase tracking-wider">Nombre</th>
+                                                                <th scope="col" className="px-6 py-4 text-left text-sm font-semibold text-gray-500 uppercase tracking-wider">Descripción</th>
+                                                                <th scope="col" className="px-6 py-4 text-left text-sm font-semibold text-gray-500 uppercase tracking-wider">Preguntas</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody className="bg-white divide-y divide-gray-200">
                                                             {tests.map((test, index) => (
                                                                 <tr key={test.id} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
-                                                                    <td className="px-6 py-4 whitespace-normal text-sm text-gray-900">{test.name}</td>
-                                                                    <td className="px-6 py-4 whitespace-normal text-sm text-gray-500">{test.description}</td>
-                                                                    <td className="px-6 py-4 whitespace-normal text-sm text-gray-500">
-                                                                        <ul className="list-disc list-inside">
+                                                                    <td className="px-6 py-4 text-sm text-gray-900">{test.name}</td>
+                                                                    <td className="px-6 py-4 text-sm text-gray-500">{test.description}</td>
+                                                                    <td className="px-6 py-4 text-sm text-gray-500">
+                                                                        <ul className="list-disc list-inside space-y-2 max-h-60 overflow-y-auto pr-4">
                                                                             {test.questions.map((question, qIndex) => (
-                                                                                <li key={qIndex} className="mb-1">{question.text}</li>
+                                                                                <li key={qIndex} className="py-1 border-b border-gray-100 last:border-0">{question.text}</li>
                                                                             ))}
                                                                         </ul>
                                                                     </td>
