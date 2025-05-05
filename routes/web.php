@@ -17,7 +17,23 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('admin.dashboard');
 
     Route::get('teacher/dashboard', function () {
-        return Inertia::render('TeacherDashboard');
+        $user = auth()->user();
+        $tests = $user->institutions()
+            ->with(['tests' => function($query) {
+                $query->select('tests.id', 'name', 'description');
+            }])
+            ->get()
+            ->pluck('tests')
+            ->flatten()
+            ->unique('id')
+            ->values();
+
+        return Inertia::render('TeacherDashboard', [
+            'auth' => [
+                'user' => $user,
+                'tests' => $tests
+            ]
+        ]);
     })->name('teacher.dashboard');
 
     Route::resource('institutions', App\Http\Controllers\InstitutionController::class);

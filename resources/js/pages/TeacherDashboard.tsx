@@ -98,9 +98,40 @@ export default function TeacherDashboard({ auth }: TeacherDashboardProps) {
                                 </section>
                             </div>
                         </div>
+                        <div className="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                            <div className="max-w-xl">
+                                <section>
+                                    <header>
+                                        <h2 className="text-lg font-medium text-gray-900">Tests Asignados</h2>
+                                        <p className="mt-1 text-sm text-gray-600">
+                                            Aquí encontrarás los tests asignados a tu institución.
+                                        </p>
+                                    </header>
+                                    <div className="mt-6 space-y-4">
+                                        {auth.tests && auth.tests.map((test: any) => (
+                                            <div key={test.id} className="p-4 border rounded-lg hover:bg-gray-50">
+                                                <h3 className="text-md font-medium text-gray-900">{test.name}</h3>
+                                                <p className="text-sm text-gray-600">{test.description}</p>
+                                                <div className="mt-2">
+                                                    <Link
+                                                        href={route('tests.show', test.id)}
+                                                        className="text-sm text-blue-600 hover:text-blue-800"
+                                                    >
+                                                        Ver detalles →
+                                                    </Link>
+                                                </div>
+                                            </div>
+                                        ))}
+                                        {(!auth.tests || auth.tests.length === 0) && (
+                                            <p className="text-sm text-gray-600">No hay tests asignados actualmente.</p>
+                                        )}
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </TeacherAuthenticatedLayout>
-        </>    
+        </>
     );
 }
