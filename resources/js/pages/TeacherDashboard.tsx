@@ -114,10 +114,10 @@ export default function TeacherDashboard({ auth }: TeacherDashboardProps) {
                                                 <p className="text-sm text-gray-600">{test.description}</p>
                                                 <div className="mt-2">
                                                     <Link
-                                                        href={route('tests.show', test.id)}
+                                                        href={route('teacher.evaluation.show', test.id)}
                                                         className="text-sm text-blue-600 hover:text-blue-800"
                                                     >
-                                                        Ver detalles →
+                                                        Responder test →
                                                     </Link>
                                                 </div>
                                             </div>

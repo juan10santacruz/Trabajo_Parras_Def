@@ -36,6 +36,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ]);
     })->name('teacher.dashboard');
 
+    // Rutas para la evaluación de profesores
+    Route::get('teacher/evaluation/{test}', [App\Http\Controllers\TeacherEvaluationController::class, 'show'])
+        ->name('teacher.evaluation.show');
+    Route::post('teacher/evaluation/submit', [App\Http\Controllers\TeacherEvaluationController::class, 'submit'])
+        ->name('teacher.evaluation.submit');
+
     Route::resource('institutions', App\Http\Controllers\InstitutionController::class);
 });
 
