@@ -55,6 +55,14 @@ class InstitutionController extends Controller
         $institution->users()->attach($teachers);
         $institution->tests()->attach($tests);
 
+        // Sincronizar la relación entre usuarios (profesores) y tests
+        foreach ($teachers as $userId) {
+            $user = User::find($userId);
+            if ($user) {
+                $user->tests()->syncWithoutDetaching($tests);
+            }
+        }
+
         return redirect()->route('institutions.index')
             ->with('message', 'Institución creada exitosamente');
     }
@@ -96,12 +104,30 @@ class InstitutionController extends Controller
         $institution->users()->sync($teachers);
         $institution->tests()->sync($tests);
 
+        // Sincronizar la relación entre usuarios (profesores) y tests
+        foreach ($teachers as $userId) {
+            $user = User::find($userId);
+            if ($user) {
+                $user->tests()->syncWithoutDetaching($tests);
+            }
+        }
+
         return redirect()->route('institutions.index')
             ->with('message', 'Institución actualizada exitosamente');
     }
 
     public function destroy(Institution $institution)
     {
+        // Obtener los usuarios y tests asociados antes de eliminar
+        $users = $institution->users;
+        $tests = $institution->tests;
+
+        // Eliminar las relaciones en test_user para los usuarios de esta institución
+        foreach ($users as $user) {
+            $user->tests()->detach($tests);
+        }
+
+        // Eliminar la institución (esto eliminará automáticamente las relaciones en institution_test e institution_user)
         $institution->delete();
 
         return redirect()->route('institutions.index')
