@@ -42,6 +42,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('teacher/evaluation/submit', [App\Http\Controllers\TeacherEvaluationController::class, 'submit'])
         ->name('teacher.evaluation.submit');
 
+    // Ruta para el reporte del profesor
+    Route::get('teacher/report', [App\Http\Controllers\TeacherReportController::class, 'getReport'])
+        ->name('teacher.report');
+
     Route::resource('institutions', App\Http\Controllers\InstitutionController::class);
 });
 

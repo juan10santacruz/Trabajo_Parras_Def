@@ -11,8 +11,9 @@ class TeacherEvaluationController extends Controller
 {
     public function show(Test $test)
     {
-        // Verificar que el profesor tenga acceso a este test
         $user = auth()->user();
+        
+        // Verificar que el profesor tenga acceso a este test
         $hasAccess = $user->institutions()
             ->whereHas('tests', function($query) use ($test) {
                 $query->where('tests.id', $test->id);
@@ -21,6 +22,18 @@ class TeacherEvaluationController extends Controller
 
         if (!$hasAccess) {
             abort(403, 'No tienes acceso a esta evaluación.');
+        }
+
+        // Verificar si el profesor ya respondió este test
+        $hasAnswered = Answer::where('user_id', $user->id)
+            ->whereHas('question', function($query) use ($test) {
+                $query->where('test_id', $test->id);
+            })
+            ->exists();
+
+        if ($hasAnswered) {
+            return redirect()->route('teacher.dashboard')
+                ->with('message', 'Ya has completado esta evaluación anteriormente.');
         }
 
         return Inertia::render('TeacherEvaluation/Index', [
@@ -50,15 +63,25 @@ class TeacherEvaluationController extends Controller
             abort(403, 'No tienes acceso a esta evaluación.');
         }
 
+        // Verificar si el profesor ya respondió este test
+        $hasAnswered = Answer::where('user_id', $user->id)
+            ->whereHas('question', function($query) use ($validated) {
+                $query->where('test_id', $validated['test_id']);
+            })
+            ->exists();
+
+        if ($hasAnswered) {
+            return redirect()->route('teacher.dashboard')
+                ->with('message', 'Ya has completado esta evaluación anteriormente.');
+        }
+
         // Guardar las respuestas
         foreach ($validated['answers'] as $answer) {
-            Answer::updateOrCreate(
-                [
-                    'question_id' => $answer['question_id'],
-                    'user_id' => $user->id
-                ],
-                ['value' => $answer['value']]
-            );
+            Answer::create([
+                'question_id' => $answer['question_id'],
+                'user_id' => $user->id,
+                'value' => $answer['value']
+            ]);
         }
 
         return redirect()->route('teacher.dashboard')
