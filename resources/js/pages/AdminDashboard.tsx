@@ -1,4 +1,3 @@
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
 import { User } from '@/types';
 import { PropsWithChildren, useState, useEffect } from 'react';

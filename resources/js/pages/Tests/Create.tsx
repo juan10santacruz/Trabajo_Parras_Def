@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Head, useForm } from '@inertiajs/react';
 import AppLayout from '@/layouts/app-layout';
 

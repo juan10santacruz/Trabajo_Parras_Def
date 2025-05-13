@@ -1,8 +1,7 @@
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 import React from 'react';
 import { User } from '@/types';
-import { PropsWithChildren, useState, useEffect } from 'react';
+import { PropsWithChildren, useState } from 'react';
 import { Link } from '@inertiajs/react';
 import AppLogoIcon from '@/components/app-logo-icon';
 import axios from 'axios';
@@ -18,7 +17,14 @@ import {
 } from 'chart.js';
 
 interface TeacherDashboardProps {
-    auth: any;
+    auth: {
+        user: User;
+        tests?: Array<{
+            id: number;
+            name: string;
+            description: string;
+        }>;
+    };
 }
 
 function TeacherAuthenticatedLayout({ user, header, children }: PropsWithChildren<{ user: User; header?: React.ReactNode }>) {
@@ -173,7 +179,7 @@ export default function TeacherDashboard({ auth }: TeacherDashboardProps) {
                                         </p>
                                     </header>
                                     <div className="mt-6 space-y-4">
-                                        {auth.tests && auth.tests.map((test: any) => (
+                                        {auth.tests && auth.tests.map((test: { id: number; name: string; description: string }) => (
                                             <div key={test.id} className="p-4 border rounded-lg hover:bg-gray-50">
                                                 <h3 className="text-md font-medium text-gray-900">{test.name}</h3>
                                                 <p className="text-sm text-gray-600">{test.description}</p>
